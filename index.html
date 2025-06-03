@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Misha & Malik's Wedding Reception</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Updated Font Link to include Lora -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Lato:wght@300;400;700&family=Lora:ital,wght@0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="page-wrapper">
+      <!-- Bismillah & Invitation Section -->
+      <section id="hero" class="section hero-section">
+        <img
+          src="floralUp.png"
+          alt="Floral Design"
+          class="floral-element floral-right "
+        />
+
+        <div class="hero-content-wrapper "> <!-- Wrapper for central content + semi-transparent background -->
+          <div class="bismillah-container">
+            <img
+              src="bismillah.png"
+              alt="Bismillah Calligraphy"
+              class="bismillah-img"
+            />
+          </div>
+          <div class="invitation-text">
+            <p class="host-names">Mr. Abdus Asif and Mrs. Riffat Asif</p>
+            <p class="invitation-line">cordially invite you to the reception and valima</p>
+            <p class="daughter-line">of their daughter</p>
+          </div>
+          <div class="couple-names">
+            <h1>Misha Bano Asif</h1>
+            <span class="ampersand">&</span>
+            <h1>Malik Bilal Ahmed</h1>
+          </div>
+          <div class="parents-groom">
+            <p><span class="small-caps-label">Son of</span> Mr. Malik Adil Hussain and Mrs. Robina Shaheen</p>
+          </div>
+        </div>
+
+        <img
+          src="floralDown.png"
+          alt="Floral Design"
+          class="floral-element floral-left "
+        />
+      </section>
+
+      <!-- You're Invited Section -->
+      <section id="youre-invited" class="section youre-invited-section">
+        <div class="content-container">
+          <div class="text-content">
+            <h2 class="">You're Invited!</h2>
+            <p class="">
+              We're so excited to celebrate this special chapter of our lives
+              with the people we love most. Your presence means the world to us,
+              and we can't wait to make unforgettable memories together.
+            </p>
+          </div>
+          <div class="image-content">
+            <img
+              src="mnb.JPG"
+              alt="Misha and Malik"
+              class="couple-photo "
+            />
+          </div>
+        </div>
+        <img
+          src="floral2nd.png"
+          alt="Floral Design"
+          class="floral-element floral-bottom-right "
+        />
+      </section>
+
+      <!-- Schedule of Events Section -->
+      <section id="schedule" class="section schedule-section">
+        <div class="content-container">
+          <h2 class="">Schedule of Events</h2>
+          <p class="centered-text-intro ">We look forward to celebrating this joyous occasion with you.</p>
+          <div class="event-details "> <!-- overflow: hidden will be added in CSS -->
+            <p class="date-time">August 9, 2025 | 7pm M.T.</p>
+            <h3>RECEPTION</h3>
+            <p class="venue">Durango Resort</p>
+            <p class="address">
+              <a href="https://maps.google.com/?q=6915+S+Durango+Dr,+Las+Vegas,+NV+89148" target="_blank" rel="noopener noreferrer">
+                6915 S Durango Dr, Las Vegas, NV 89148
+              </a>
+            </p>
+            <!-- MAP HAS BEEN MOVED FROM HERE -->
+          </div>
+        </div>
+        <img
+          src="floralB.png"
+          alt="Floral Bouquet"
+          class="floral-element floral-schedule-left "
+        />
+      </section>
+
+      <!-- Answering your Questions Section -->
+      <section id="faq" class="section faq-section">
+        <div class="content-container">
+          <h2 class="">Answering your Questions</h2>
+          <div class="faq-grid">
+            <!-- FAQ Item 1: Corrected Structure -->
+            <div class="faq-item">
+              <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-1">
+                <h3>Can I bring a plus one?</h3>
+                <span class="faq-icon" aria-hidden="true">+</span>
+              </button>
+              <div class="faq-answer" id="faq-answer-1">
+                <p>
+                  Due to limited space, we're only able to accommodate those
+                  guests formally invited on your invitation. Thank you for
+                  your understanding!
+                </p>
+              </div>
+            </div>
+            <!-- FAQ Item 2: Parking with Map -->
+            <div class="faq-item">
+              <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-2">
+                <h3>Where can I park?</h3>
+                <span class="faq-icon" aria-hidden="true">+</span>
+              </button>
+              <div class="faq-answer" id="faq-answer-2">
+                <p>
+                  Complimentary valet parking is available at the hotel. Please
+                  note that the hotel may have ongoing enhancements, so we recommend
+                  heading directly to the main entrance where valet staff will be
+                  ready to assist you. You can find the location below:
+                </p>
+                <!-- MAP PASTED HERE -->
+                <div class="embed-map-responsive map-container-for-animation">
+                    <div class="embed-map-container">
+                        <iframe class="embed-map-frame" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=600&height=400&hl=en&q=6915%20S%20Durango%20Dr%2C%20Las%20Vegas%2C%20NV%2089148&t=&z=14&ie=UTF8&iwloc=B&output=embed"></iframe>
+                        <a href="https://sprunkiretake.net" style="font-size:2px!important;color:gray!important;position:absolute;bottom:0;left:0;z-index:1;max-height:1px;overflow:hidden">sprunki retake</a>
+                    </div>
+                </div>
+              </div>
+            </div>
+            <!-- FAQ Item 3: Corrected Structure -->
+            <div class="faq-item">
+              <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-3">
+                <h3>Are children welcome?</h3>
+                <span class="faq-icon" aria-hidden="true">+</span>
+              </button>
+              <div class="faq-answer" id="faq-answer-3">
+                <p>
+                  While we adore your little ones, our reception will be an adults-only occasion to allow all guests to relax and enjoy the evening. We appreciate your understanding.
+                </p>
+              </div>
+            </div>
+            <!-- FAQ Item 4: Corrected Structure -->
+            <div class="faq-item">
+              <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-4">
+                <h3>What about gifts?</h3>
+                <span class="faq-icon" aria-hidden="true">+</span>
+              </button>
+              <div class="faq-answer" id="faq-answer-4">
+                <p>
+                  Your joyful presence at our celebration is the greatest gift of all. We kindly request no boxed gifts.
+                </p>
+              </div>
+            </div>
+            <!-- FAQ Item 5: Corrected Structure -->
+            <div class="faq-item">
+              <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-5">
+                <h3>What is the dress code?</h3>
+                <span class="faq-icon" aria-hidden="true">+</span>
+              </button>
+              <div class="faq-answer" id="faq-answer-5">
+                <p>
+                  We encourage guests to wear formal attire or festive traditional wear. We look forward to celebrating in style with you!
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- RSVP Section -->
+      <section id="rsvp" class="section rsvp-section">
+        <div class="content-container">
+          <div class="rsvp-details-box">
+            <h2 class="">We Can't Wait to Celebrate With You!</h2>
+            <p class="rsvp-date-emphasis">Kindly RSVP by July 9th, 2025</p>
+            <p class="rsvp-intro-text">
+              Please let us know if you can join us by clicking the RSVP link below.
+            </p>
+            <a href="https://www.aisleplanner.com/app/v2/our-wedding/mishaandbilal/rsvp" class="rsvp-button " target="_blank" rel="noopener noreferrer">CLICK HERE TO RSVP</a>
+            <p class="rsvp-contact-info">
+              Should you have any questions,<br class="mobile-break">
+              please feel free to contact Abdus Asif at <a href="tel:+17026125500">(702) 612-5500</a>.
+            </p>
+          </div>
+
+          <img
+            src="floralbottom.png" 
+            alt="Floral Design for RSVP"
+            class="floral-element floral-rsvp-center "
+          />
+        </div>
+      </section>
+
+    </div> <!-- .page-wrapper -->
+    <script src="script.js"></script>
+  </body>
+</html>
