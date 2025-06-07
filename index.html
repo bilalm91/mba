@@ -7,23 +7,24 @@
     <link rel="stylesheet" href="style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <!-- Updated Font Link to include Lora -->
     <link
       href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Lato:wght@300;400;700&family=Lora:ital,wght@0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
       rel="stylesheet"
     />
   </head>
   <body>
+    <!-- NEW: Fixed Corner Florals Container -->
+    <div class="corner-florals">
+      <img src="floralTopLeft.png" alt="Top Left Floral Corner" class="corner-floral top-left">
+      <img src="floralTopRight.png" alt="Top Right Floral Corner" class="corner-floral top-right">
+      <img src="floralDownLeft.png" alt="Bottom Left Floral Corner" class="corner-floral bottom-left">
+      <img src="floralBottomRight.png" alt="Bottom Right Floral Corner" class="corner-floral bottom-right">
+    </div>
+
     <div class="page-wrapper">
       <!-- Bismillah & Invitation Section -->
       <section id="hero" class="section hero-section">
-        <img
-          src="floralUp.png"
-          alt="Floral Design"
-          class="floral-element floral-right "
-        />
-
-        <div class="hero-content-wrapper "> <!-- Wrapper for central content + semi-transparent background -->
+        <div class="hero-content-wrapper">
           <div class="bismillah-container">
             <img
               src="bismillah.png"
@@ -45,12 +46,6 @@
             <p><span class="small-caps-label">Son of</span> Mr. Malik Adil Hussain and Mrs. Robina Shaheen</p>
           </div>
         </div>
-
-        <img
-          src="floralDown.png"
-          alt="Floral Design"
-          class="floral-element floral-left "
-        />
       </section>
 
       <!-- You're Invited Section -->
@@ -72,11 +67,6 @@
             />
           </div>
         </div>
-        <img
-          src="floral2nd.png"
-          alt="Floral Design"
-          class="floral-element floral-bottom-right "
-        />
       </section>
 
       <!-- Schedule of Events Section -->
@@ -84,7 +74,7 @@
         <div class="content-container">
           <h2 class="">Schedule of Events</h2>
           <p class="centered-text-intro ">We look forward to celebrating this joyous occasion with you.</p>
-          <div class="event-details "> <!-- overflow: hidden will be added in CSS -->
+          <div class="event-details ">
             <p class="date-time">August 9, 2025 | 7pm M.T.</p>
             <h3>RECEPTION</h3>
             <p class="venue">Durango Resort</p>
@@ -93,14 +83,8 @@
                 6915 S Durango Dr, Las Vegas, NV 89148
               </a>
             </p>
-            <!-- MAP HAS BEEN MOVED FROM HERE -->
           </div>
         </div>
-        <img
-          src="floralB.png"
-          alt="Floral Bouquet"
-          class="floral-element floral-schedule-left "
-        />
       </section>
 
       <!-- Answering your Questions Section -->
@@ -108,7 +92,6 @@
         <div class="content-container">
           <h2 class="">Answering your Questions</h2>
           <div class="faq-grid">
-            <!-- FAQ Item 1: Corrected Structure -->
             <div class="faq-item">
               <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-1">
                 <h3>Can I bring a plus one?</h3>
@@ -122,7 +105,6 @@
                 </p>
               </div>
             </div>
-            <!-- FAQ Item 2: Parking with Map -->
             <div class="faq-item">
               <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-2">
                 <h3>Where can I park?</h3>
@@ -135,7 +117,6 @@
                   heading directly to the main entrance where valet staff will be
                   ready to assist you. You can find the location below:
                 </p>
-                <!-- MAP PASTED HERE -->
                 <div class="embed-map-responsive map-container-for-animation">
                     <div class="embed-map-container">
                         <iframe class="embed-map-frame" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=600&height=400&hl=en&q=6915%20S%20Durango%20Dr%2C%20Las%20Vegas%2C%20NV%2089148&t=&z=14&ie=UTF8&iwloc=B&output=embed"></iframe>
@@ -144,7 +125,6 @@
                 </div>
               </div>
             </div>
-            <!-- FAQ Item 3: Corrected Structure -->
             <div class="faq-item">
               <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-3">
                 <h3>Are children welcome?</h3>
@@ -156,7 +136,6 @@
                 </p>
               </div>
             </div>
-            <!-- FAQ Item 4: Corrected Structure -->
             <div class="faq-item">
               <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-4">
                 <h3>What about gifts?</h3>
@@ -168,7 +147,6 @@
                 </p>
               </div>
             </div>
-            <!-- FAQ Item 5: Corrected Structure -->
             <div class="faq-item">
               <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-5">
                 <h3>What is the dress code?</h3>
@@ -199,15 +177,8 @@
               please feel free to contact Abdus Asif at <a href="tel:+17026125500">(702) 612-5500</a>.
             </p>
           </div>
-
-          <img
-            src="floralbottom.png" 
-            alt="Floral Design for RSVP"
-            class="floral-element floral-rsvp-center "
-          />
         </div>
       </section>
-
     </div> <!-- .page-wrapper -->
     <script src="script.js"></script>
   </body>
