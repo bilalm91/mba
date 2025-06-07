@@ -11,8 +11,9 @@ html {
     scroll-behavior: smooth;
 }
 
+/* UPDATED: Lora is now the primary body font */
 body {
-    font-family: 'Lato', sans-serif;
+    font-family: 'Lora', serif;
     line-height: 1.6;
     color: #4E4E4E;
     background-color: #FFFFFF;
@@ -42,13 +43,12 @@ body::before {
     z-index: 1;
 }
 
-/* --- NEW: FIXED CORNER FLORALS --- */
+/* --- FIXED CORNER FLORALS --- */
 .corner-floral {
     position: fixed;
     z-index: 10;
     pointer-events: none; /* Allows clicking through the image */
     height: auto;
-    /* Default (Desktop) Size */
     width: clamp(150px, 20vw, 300px);
 }
 .corner-floral.top-left { top: 0; left: 0; }
@@ -56,46 +56,28 @@ body::before {
 .corner-floral.bottom-left { bottom: 0; left: 0; }
 .corner-floral.bottom-right { bottom: 0; right: 0; }
 
-/* Tablet Size */
 @media (max-width: 1024px) {
-    .corner-floral {
-        width: clamp(134.4px, 24.192vw, 295.68px);
-    }
+    .corner-floral { width: clamp(201.6px, 36.288vw, 443.52px); }
 }
-/* Mobile Size */
 @media (max-width: 768px) {
-    .corner-floral {
-        width: clamp(107.52px, 33.6vw, 201.6px);
-    }
+    .corner-floral { width: clamp(161.28px, 50.4vw, 302.4px); }
 }
-/* Extra Small / Zoomed-in Size */
 @media (max-width: 480px) {
-    .corner-floral {
-        width: clamp(80.64px, 29.568vw, 147.84px);
-    }
+    .corner-floral { width: clamp(120.96px, 44.352vw, 221.76px); }
 }
 
 
-/* MODIFIED: Section padding for contiguous flow */
+/* --- SECTIONS --- */
 .section {
-    padding: 60px 20px; /* Standard padding between sections */
+    padding: 60px 20px;
     text-align: center;
     position: relative;
     width: 100vw;
     box-sizing: border-box;
 }
 
-/* Add extra padding to first and last sections to avoid content hiding under florals */
-#hero {
-        /* padding-top: 120px; */
-        padding-top: 50px;
-
-}
-#rsvp {
-    /* padding-bottom: 150px; */
-    padding-bottom: 50px;
-}
-
+#hero { padding-top: 50px; }
+#rsvp { padding-bottom: 50px; }
 
 h1, h2, h3 {
     font-family: 'Playfair Display', serif;
@@ -104,6 +86,7 @@ h1, h2, h3 {
     font-weight: normal;
 }
 
+/* UPDATED: Default paragraph font is Lora, inherited from body */
 p {
     margin-bottom: 10px;
     font-size: clamp(0.9rem, 2.2vw, 1.05rem);
@@ -125,9 +108,6 @@ p {
     border-radius: 50% 50% 50% 0 / 100% 100% 0 0;
     transform-origin: center center;
 }
-
-/* --- ALL OLD FLORAL STYLES REMOVED --- */
-
 
 /* --- HERO SECTION STYLES --- */
 .hero-section .hero-content-wrapper {
@@ -175,32 +155,30 @@ p {
     margin-top: 15px;
 }
 
+/* Playfair Display is used for this formal invitation text */
 .invitation-text .host-names,
 .invitation-text .invitation-line,
 .invitation-text .daughter-line {
-    font-family: 'Lora', serif;
+    font-family: 'Playfair Display', serif; 
     color: #5d4037;
     opacity: 0;
     transform: translateY(40px);
     margin-bottom: 8px;
+    font-weight: 400;
 }
 
 .invitation-text .host-names {
-    font-size: clamp(0.95rem, 2.3vw, 1.1rem);
-    font-variant: small-caps;
-    font-weight: 400;
+    font-size: clamp(1rem, 2.4vw, 1.15rem);
     margin-bottom: 12px;
 }
 
 .invitation-text .invitation-line {
     font-size: clamp(1rem, 2.4vw, 1.15rem);
     font-style: italic;
-    font-weight: 400;
 }
 
 .invitation-text .daughter-line {
-    font-size: clamp(0.95rem, 2.3vw, 1.1rem);
-    font-weight: 400;
+    font-size: clamp(1rem, 2.4vw, 1.15rem);
 }
 
 .hero-section.active-section .host-names,
@@ -213,9 +191,7 @@ p {
 .hero-section.active-section .daughter-line { animation-delay: 0.8s; }
 
 
-.couple-names {
-    margin-bottom: 20px;
-}
+.couple-names { margin-bottom: 20px; }
 .couple-names h1 {
     font-family: 'Great Vibes', cursive;
     font-size: clamp(2.25rem, 7.5vw, 4.875rem); 
@@ -256,264 +232,64 @@ p {
 .hero-section.active-section .parents-groom {
     animation: fadeInUp 0.8s ease-out 1.5s forwards;
 }
+/* Playfair Display is used for this formal text */
 .parents-groom p {
-    font-family: 'Lora', serif;
+    font-family: 'Playfair Display', serif;
     color: #555555;
     margin-top: 10px;
     font-weight: 400;
-    font-size: clamp(0.95rem, 2.3vw, 1.1rem);
-}
-.parents-groom .small-caps-label {
-    font-variant: small-caps;
-    margin-right: 0.3em;
+    font-size: clamp(1rem, 2.4vw, 1.15rem);
 }
 
-/* You're Invited Section */
-.youre-invited-section .content-container {
-    max-width: 90%; margin: 0 auto; padding: 20px 0;
-    position: relative; z-index: 2; 
-}
-.youre-invited-section .text-content h2 {
-    font-family: 'Great Vibes', cursive;
-    font-size: clamp(2.8rem, 7vw, 4rem); 
-    color: #C55A11;
-    margin-bottom: 20px;
-    opacity: 0;
-    transform: translateY(-40px);
-}
-.youre-invited-section.active-section .text-content h2 {
-    animation: fadeInDown 0.8s ease-out 0.4s forwards;
-}
-.youre-invited-section .text-content p {
-    max-width: 550px; margin-left: auto; margin-right: auto;
-    opacity: 0;
-    transform: translateY(40px);
-}
-.youre-invited-section.active-section .text-content p {
-    animation: fadeInUp 0.8s ease-out 0.6s forwards;
-}
-.youre-invited-section .image-content .couple-photo {
-    max-width: clamp(181.5px, 66vw, 495px); 
-    border-radius: 12px;
-    border: 5px solid rgba(255, 255, 255, 0.85);
-    box-shadow: 0 6px 22px rgba(0, 0, 0, 0.12);
-    opacity: 0;
-    transform: scale(0.5);
-}
+/* --- You're Invited & Other Sections --- */
+/* All <p> tags in these sections will now default to Lora */
 
-@media (min-width: 768px) {
-    .youre-invited-section .image-content .couple-photo {
-        max-width: clamp(440px, 55vw, 600px); 
-    }
-}
-.youre-invited-section.active-section .image-content .couple-photo {
-    animation: zoomIn 1s ease-out 0.5s forwards;
-}
+.youre-invited-section .content-container { max-width: 90%; margin: 0 auto; padding: 20px 0; position: relative; z-index: 2; }
+.youre-invited-section .text-content h2 { font-family: 'Great Vibes', cursive; font-size: clamp(2.8rem, 7vw, 4rem); color: #C55A11; margin-bottom: 20px; opacity: 0; transform: translateY(-40px); }
+.youre-invited-section.active-section .text-content h2 { animation: fadeInDown 0.8s ease-out 0.4s forwards; }
+.youre-invited-section .text-content p { max-width: 550px; margin-left: auto; margin-right: auto; opacity: 0; transform: translateY(40px); }
+.youre-invited-section.active-section .text-content p { animation: fadeInUp 0.8s ease-out 0.6s forwards; }
+.youre-invited-section .image-content .couple-photo { max-width: clamp(181.5px, 66vw, 495px); border-radius: 12px; border: 5px solid rgba(255, 255, 255, 0.85); box-shadow: 0 6px 22px rgba(0, 0, 0, 0.12); opacity: 0; transform: scale(0.5); }
+.youre-invited-section.active-section .image-content .couple-photo { animation: zoomIn 1s ease-out 0.5s forwards; }
 
-/* Schedule Section */
-.schedule-section .content-container {
-    max-width: 90%; margin: 0 auto; padding: 20px 0;
-    position: relative; z-index: 2; 
-}
-.schedule-section .content-container > h2 {
-    font-family: 'Great Vibes', cursive; 
-    font-size: clamp(2.8rem, 7vw, 4rem); 
-    color: #C55A11; 
-    margin-bottom: 25px; 
-    opacity: 0; transform: translateY(-40px);
-}
-.schedule-section.active-section .content-container > h2 {
-     animation: fadeInDown 0.8s ease-out 0.4s forwards;
-}
-.schedule-section .event-details {
-    background-color: rgba(255, 255, 255, 0.7);
-    padding: clamp(20px, 4vw, 30px);
-    border-radius: 10px;
-    border-left: 4px solid #C55A11;
-    max-width: 480px; 
-    margin: 0 auto;
-    opacity: 0;
-    transform: scale(0.8);
-    overflow: hidden; 
-}
-.schedule-section.active-section .event-details {
-    animation: scaleUp 0.9s ease-out 0.6s forwards;
-}
-.schedule-section .event-details > * { 
-    opacity: 0;
-    transform: translateY(40px);
-}
-.schedule-section.active-section .event-details > * {
-    animation: fadeInUp 0.7s ease-out forwards;
-}
+.schedule-section .content-container { max-width: 90%; margin: 0 auto; padding: 20px 0; position: relative; z-index: 2; }
+.schedule-section .content-container > h2 { font-family: 'Great Vibes', cursive; font-size: clamp(2.8rem, 7vw, 4rem); color: #C55A11; margin-bottom: 25px; opacity: 0; transform: translateY(-40px); }
+.schedule-section.active-section .content-container > h2 { animation: fadeInDown 0.8s ease-out 0.4s forwards; }
+.schedule-section .event-details { background-color: rgba(255, 255, 255, 0.7); padding: clamp(20px, 4vw, 30px); border-radius: 10px; border-left: 4px solid #C55A11; max-width: 480px; margin: 0 auto; opacity: 0; transform: scale(0.8); overflow: hidden; }
+.schedule-section.active-section .event-details { animation: scaleUp 0.9s ease-out 0.6s forwards; }
+.schedule-section .event-details > * { opacity: 0; transform: translateY(40px); }
+.schedule-section.active-section .event-details > * { animation: fadeInUp 0.7s ease-out forwards; }
 .schedule-section.active-section .event-details .date-time { animation-delay: 0.8s; }
 .schedule-section.active-section .event-details h3 { animation-delay: 0.95s; }
 .schedule-section.active-section .event-details .venue { animation-delay: 1.1s; }
 .schedule-section.active-section .event-details .address { animation-delay: 1.25s; }
+.event-details .date-time { font-family: 'Playfair Display', serif; font-size: clamp(1rem, 2.8vw, 1.15rem); font-weight: 700; color: #8D4513; }
+.event-details h3 { font-family: 'Playfair Display', serif; color: #CB5837; font-size: clamp(1.3rem, 3.5vw, 1.6rem); margin-top: 5px; margin-bottom: 8px; }
+.event-details .venue, .event-details .address { font-size: clamp(0.9rem, 2.5vw, 1.05rem); color: #5d4037; }
+.event-details .address a { color: #C55A11; text-decoration: none; }
+.event-details .address a:hover { text-decoration: underline; }
+.centered-text-intro { max-width: 600px; margin-left: auto; margin-right: auto; margin-bottom: 25px; opacity: 0; }
+.schedule-section.active-section .centered-text-intro { animation: fadeInUp 0.8s ease-out 0.5s forwards; }
 
+.embed-map-responsive { position: relative; width: 100%; height: 0; padding-bottom: 66.67%; margin-top: 20px; }
+.embed-map-container { overflow: hidden; background: none !important; width: 100%; height: 100%; position: absolute; top: 0; left: 0; }
+.embed-map-frame { width: 100% !important; height: 100% !important; position: absolute; top: 0; left: 0; border: 0; }
 
-.event-details .date-time {
-    font-size: clamp(1rem, 2.8vw, 1.15rem);
-    font-weight: 700; color: #8D4513;
-}
-.event-details h3 { 
-    font-family: 'Playfair Display', serif;
-    color: #CB5837; 
-    font-size: clamp(1.3rem, 3.5vw, 1.6rem);
-    margin-top: 5px;
-    margin-bottom: 8px;
-}
-.event-details .venue, .event-details .address {
-    font-size: clamp(0.9rem, 2.5vw, 1.05rem);
-    color: #5d4037;
-}
-.event-details .address a {
-    color: #C55A11;
-    text-decoration: none;
-}
-.event-details .address a:hover {
-    text-decoration: underline;
-}
-
-/* Styles for responsive map embed (applicable in FAQ now) */
-.embed-map-responsive {
-    position: relative;
-    width: 100%;
-    height: 0;
-    padding-bottom: 66.66666666666666%; 
-    margin-top: 20px; 
-}
-
-.embed-map-container {
-    overflow: hidden;
-    background: none !important; 
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
-.embed-map-frame {
-    width: 100% !important;
-    height: 100% !important;
-    position: absolute;
-    top: 0;
-    left: 0;
-    border: 0; 
-}
-
-
-.centered-text-intro { 
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 25px; 
-    opacity: 0; 
-}
-.schedule-section.active-section .centered-text-intro,
-.rsvp-section.active-section .centered-text-intro {
-    animation: fadeInUp 0.8s ease-out 0.5s forwards;
-}
-
-
-/* === FAQ Section (Accordion Style) === */
-.faq-section .content-container {
-    max-width: 90%; margin: 0 auto; padding: 20px 0;
-}
-.faq-section .content-container > h2 {
-    font-family: 'Great Vibes', cursive; 
-    font-size: clamp(2.8rem, 7vw, 4rem); 
-    color: #C55A11; 
-    margin-bottom: 30px; 
-    opacity: 0; transform: translateY(-40px);
-}
-.faq-section.active-section .content-container > h2 {
-    animation: fadeInDown 0.8s ease-out 0.4s forwards;
-}
-
-.faq-grid {
-    display: grid;
-    grid-template-columns: 1fr; 
-    gap: 15px; 
-    width: 100%;
-    max-width: 700px; 
-    margin: 0 auto;
-}
-
-.faq-item {
-    background-color: rgba(255, 253, 252, 0.65); 
-    border-radius: 10px;
-    border: 1px solid rgba(203, 88, 55, 0.25); 
-    overflow: hidden; 
-    opacity: 0;
-    transform: translateY(40px); 
-}
-
-.faq-question {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    background-color: transparent;
-    border: none;
-    padding: clamp(15px, 3vw, 20px) clamp(20px, 4vw, 25px);
-    text-align: left;
-    cursor: pointer;
-    font-family: inherit; 
-}
-
-.faq-question h3 {
-    font-family: 'Playfair Display', serif;
-    color: #5d4037; 
-    font-size: clamp(1rem, 2.8vw, 1.2rem); 
-    margin-bottom: 0; 
-    font-weight: 700; 
-}
-
-.faq-icon {
-    font-size: clamp(1.4rem, 3vw, 1.8rem);
-    color: #5d4037; 
-    transition: transform 0.3s ease-out;
-    font-weight: 300; 
-    margin-left: 15px; 
-}
-
-.faq-answer {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.45s ease-out, padding-top 0.45s ease-out, padding-bottom 0.45s ease-out;
-    padding-left: clamp(20px, 4vw, 25px);
-    padding-right: clamp(20px, 4vw, 25px);
-    background-color: rgba(255, 255, 255, 0.1); 
-}
-
-.faq-answer p {
-    font-family: 'Lora', serif;
-    font-size: clamp(0.85rem, 2.2vw, 1rem);
-    color: #5d4037;
-    line-height: 1.65;
-    margin-bottom: 0; 
-}
-
-.faq-answer .embed-map-responsive {
-    margin-bottom: clamp(10px, 2vw, 15px);
-}
-
-
-.faq-item.active .faq-answer {
-    max-height: 800px; 
-    padding-top: clamp(5px, 1.5vw, 10px); 
-    padding-bottom: clamp(15px, 3vw, 20px); 
-}
-
-.faq-item.active .faq-icon {
-    transform: rotate(45deg); 
-}
-
-.faq-section.active-section .faq-item {
-    animation: fadeInUp 0.7s ease-out forwards;
-}
+.faq-section .content-container { max-width: 90%; margin: 0 auto; padding: 20px 0; }
+.faq-section .content-container > h2 { font-family: 'Great Vibes', cursive; font-size: clamp(2.8rem, 7vw, 4rem); color: #C55A11; margin-bottom: 30px; opacity: 0; transform: translateY(-40px); }
+.faq-section.active-section .content-container > h2 { animation: fadeInDown 0.8s ease-out 0.4s forwards; }
+.faq-grid { display: grid; grid-template-columns: 1fr; gap: 15px; width: 100%; max-width: 700px; margin: 0 auto; }
+.faq-item { background-color: rgba(255, 253, 252, 0.65); border-radius: 10px; border: 1px solid rgba(203, 88, 55, 0.25); overflow: hidden; opacity: 0; transform: translateY(40px); }
+.faq-question { display: flex; justify-content: space-between; align-items: center; width: 100%; background-color: transparent; border: none; padding: clamp(15px, 3vw, 20px) clamp(20px, 4vw, 25px); text-align: left; cursor: pointer; font-family: inherit; }
+.faq-question h3 { font-family: 'Playfair Display', serif; color: #5d4037; font-size: clamp(1rem, 2.8vw, 1.2rem); margin-bottom: 0; font-weight: 700; }
+.faq-icon { font-size: clamp(1.4rem, 3vw, 1.8rem); color: #5d4037; transition: transform 0.3s ease-out; font-weight: 300; margin-left: 15px; }
+.faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.45s ease-out, padding-top 0.45s ease-out, padding-bottom 0.45s ease-out; padding-left: clamp(20px, 4vw, 25px); padding-right: clamp(20px, 4vw, 25px); background-color: rgba(255, 255, 255, 0.1); }
+/* CLEANED UP: This now inherits Lora from the body */
+.faq-answer p { font-size: clamp(0.85rem, 2.2vw, 1rem); color: #5d4037; line-height: 1.65; margin-bottom: 0; }
+.faq-answer .embed-map-responsive { margin-bottom: clamp(10px, 2vw, 15px); }
+.faq-item.active .faq-answer { max-height: 800px; padding-top: clamp(5px, 1.5vw, 10px); padding-bottom: clamp(15px, 3vw, 20px); }
+.faq-item.active .faq-icon { transform: rotate(45deg); }
+.faq-section.active-section .faq-item { animation: fadeInUp 0.7s ease-out forwards; }
 .faq-section.active-section .faq-item:nth-child(1) { animation-delay: 0.6s; }
 .faq-section.active-section .faq-item:nth-child(2) { animation-delay: 0.7s; }
 .faq-section.active-section .faq-item:nth-child(3) { animation-delay: 0.8s; }
@@ -521,34 +297,20 @@ p {
 .faq-section.active-section .faq-item:nth-child(5) { animation-delay: 1.0s; }
 
 
-/* RSVP Section */
-.rsvp-section .content-container {
-    max-width: 90%; margin: 0 auto;
-    padding: 20px 0;
-    position: relative; z-index: 2; 
-}
+/* --- RSVP Section --- */
+.rsvp-section .content-container { max-width: 90%; margin: 0 auto; padding: 20px 0; position: relative; z-index: 2; }
 
-.rsvp-button {
-    display: inline-block;
-    background-color: #C55A11;
-    color: white;
-    padding: clamp(12px, 3vw, 16px) clamp(30px, 6vw, 40px);
-    text-decoration: none;
-    font-family: 'Playfair Display', serif;
-    font-weight: 700;
-    font-size: clamp(1.1rem, 3.5vw, 1.4rem);
-    border-radius: 6px;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    margin-bottom: 20px; 
-
-    opacity: 0; 
-    transform: scale(0.7); 
-    position: relative; 
-    z-index: 2; 
+.rsvp-section .content-container > h2 {
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(2.4rem, 6.5vw, 3.5rem);
+    color: #C55A11;
+    margin-bottom: 25px;
+    line-height: 1.2;
+    opacity: 0;
+    transform: translateY(-30px);
 }
-.rsvp-button:hover {
-    background-color: #A0470F;
-    transform: translateY(-2px) scale(1); 
+.rsvp-section.active-section .content-container > h2 {
+    animation: fadeInDown 0.8s ease-out 0.4s forwards;
 }
 
 .rsvp-details-box {
@@ -564,110 +326,94 @@ p {
     opacity: 0;
     transform: scale(0.85);
 }
-
 .rsvp-section.active-section .rsvp-details-box {
-    animation: scaleUp 0.9s ease-out 0.4s forwards; 
+    animation: scaleUp 0.9s ease-out 0.6s forwards; 
 }
 
-.rsvp-details-box h2, 
 .rsvp-details-box .rsvp-date-emphasis,
 .rsvp-details-box .rsvp-intro-text,
 .rsvp-details-box .rsvp-contact-info {
     opacity: 0;
     transform: translateY(30px);
 }
-
-.rsvp-section.active-section .rsvp-details-box h2,
 .rsvp-section.active-section .rsvp-details-box .rsvp-date-emphasis,
 .rsvp-section.active-section .rsvp-details-box .rsvp-intro-text,
 .rsvp-section.active-section .rsvp-details-box .rsvp-contact-info {
     animation: fadeInUp 0.7s ease-out forwards;
 }
-
-.rsvp-section.active-section .rsvp-details-box h2 { animation-delay: 0.6s; }
-.rsvp-section.active-section .rsvp-details-box .rsvp-date-emphasis { animation-delay: 0.75s; }
-.rsvp-section.active-section .rsvp-details-box .rsvp-intro-text { animation-delay: 0.9s; }
-.rsvp-section.active-section .rsvp-details-box .rsvp-contact-info { animation-delay: 1.2s; }
-.rsvp-section.active-section .rsvp-details-box .rsvp-button {
+.rsvp-section.active-section .rsvp-details-box .rsvp-date-emphasis { animation-delay: 0.8s; }
+.rsvp-section.active-section .rsvp-details-box .rsvp-intro-text { animation-delay: 0.95s; }
+.rsvp-section.active-section .rsvp-details-box .rsvp-contact-info { animation-delay: 1.25s; }
+.rsvp-section.active-section .rsvp-button {
     animation: popIn 0.8s ease-out forwards; 
-    animation-delay: 1.05s; 
-}
-.rsvp-details-box h2 { 
-    font-family: 'Great Vibes', cursive; 
-    font-size: clamp(2.4rem, 6.5vw, 3.5rem); 
-    color: #C55A11; 
-    margin-bottom: 15px;
-    line-height: 1.2;
+    animation-delay: 1.1s; 
 }
 
-.rsvp-date-emphasis {
+.rsvp-date-emphasis { font-family: 'Playfair Display', serif; font-size: clamp(1.1rem, 3vw, 1.35rem); color: #8D4513; font-weight: 700; margin-bottom: 20px; }
+/* CLEANED UP: This now inherits Lora from the body */
+.rsvp-intro-text { font-size: clamp(0.9rem, 2.3vw, 1.05rem); color: #5d4037; line-height: 1.7; max-width: 480px; margin-left: auto; margin-right: auto; margin-bottom: 25px; }
+
+.rsvp-button {
+    display: inline-block;
+    background-color: #C55A11;
+    color: white;
+    padding: clamp(12px, 3vw, 16px) clamp(30px, 6vw, 40px);
+    text-decoration: none;
     font-family: 'Playfair Display', serif;
-    font-size: clamp(1.1rem, 3vw, 1.35rem);
-    color: #8D4513;
     font-weight: 700;
-    margin-bottom: 20px;
+    font-size: clamp(1.1rem, 3.5vw, 1.4rem);
+    border-radius: 6px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 5px;
+    margin-bottom: 5px; 
+    opacity: 0; 
+    transform: scale(0.7); 
+    position: relative; 
+    z-index: 2; 
 }
+.rsvp-button:hover { background-color: #A0470F; transform: translateY(-2px) scale(1); }
 
-.rsvp-intro-text {
-    font-family: 'Lora', serif;
-    font-size: clamp(0.9rem, 2.3vw, 1.05rem);
-    color: #5d4037;
-    line-height: 1.7;
-    max-width: 480px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 25px;
-}
-
+/* CLEANED UP: This now inherits Lora from the body */
 .rsvp-contact-info {
-    font-family: 'Lato', sans-serif;
-    font-size: clamp(0.8rem, 2.1vw, 0.95rem);
+    font-size: clamp(0.85rem, 2.2vw, 1rem);
     color: #6b4f46;
     margin-top: 25px;
     line-height: 1.6;
 }
-.rsvp-contact-info a { 
-    color: inherit; 
-    text-decoration: none; 
+.rsvp-contact-info p {
+    margin-bottom: 12px;
+    font-size: inherit;
 }
-.rsvp-contact-info a:hover {
-    color: #C55A11; 
-    text-decoration: underline;
+.rsvp-contact-list {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
 }
-
+.rsvp-contact-list li {
+    margin-bottom: 5px;
+}
+.rsvp-contact-info a { color: inherit; text-decoration: none; }
+.rsvp-contact-info a:hover { color: #C55A11; text-decoration: underline; }
 
 .mobile-break { display: none; }
 @media (max-width: 480px) {
     .mobile-break { display: block; }
-    .rsvp-details-box h2 {
-        font-size: clamp(2rem, 8vw, 2.6rem);
-    }
+    .rsvp-section .content-container > h2 { font-size: clamp(2rem, 8vw, 2.6rem); }
 }
 
 /* Media Queries */
 @media (min-width: 768px) {
-    .section {
-        padding-left: 40px;
-        padding-right: 40px;
-    }
-    .hero-section .hero-content-wrapper {
-        max-width: 700px;
-        padding: 30px 40px;
-    }
+    .section { padding-left: 40px; padding-right: 40px; }
+    .hero-section .hero-content-wrapper { max-width: 700px; padding: 30px 40px; }
     .bismillah-img { max-width: 280px; }
     .couple-names .ampersand { display: inline; margin: 0 10px; }
     .youre-invited-section .content-container { display: flex; flex-direction: row; text-align: left; gap: 30px; align-items: center;}
     .youre-invited-section .text-content { flex: 1.2; padding-right: 10px; }
     .youre-invited-section .image-content { flex: 0.8; text-align: center; padding-left: 10px; }
-    .faq-grid {
-        gap: 20px; 
-    }
-    .faq-question h3 {
-        font-size: clamp(1.1rem, 2.2vw, 1.25rem); 
-    }
-    .faq-answer p {
-        font-size: clamp(0.9rem, 2vw, 1.05rem); 
-    }
+    .youre-invited-section .image-content .couple-photo { max-width: clamp(440px, 55vw, 600px); }
+    .faq-grid { gap: 20px; }
+    .faq-question h3 { font-size: clamp(1.1rem, 2.2vw, 1.25rem); }
+    .faq-answer p { font-size: clamp(0.9rem, 2vw, 1.05rem); }
 }
 
 @media (min-width: 1024px) {
@@ -679,7 +425,7 @@ p {
     .rsvp-section .content-container { max-width: 700px; } 
 }
 
-/* Animation Keyframes (No changes needed here) */
+/* Animation Keyframes */
 @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes fadeInDown { from { opacity: 0; transform: translateY(-40px); } to { opacity: 1; transform: translateY(0); } }
@@ -691,41 +437,4 @@ p {
   0% { opacity: 0; transform: scale(0.7); }
   70% { opacity: 1; transform: scale(1.05); }
   100% { opacity: 1; transform: scale(1); } 
-}
-
-
-/* --- NEW: GYROSCOPE PERMISSION OVERLAY --- */
-#permission-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 99999;
-    transition: opacity 0.5s ease-out;
-}
-
-#permission-button {
-    background-color: #C55A11;
-    color: white;
-    border: none;
-    padding: 15px 30px;
-    font-family: 'Playfair Display', serif;
-    font-size: 1.2rem;
-    font-weight: 700;
-    border-radius: 8px;
-    cursor: pointer;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    transition: all 0.2s ease;
-}
-
-#permission-button:hover {
-    background-color: #A0470F;
-    transform: translateY(-2px);
 }
