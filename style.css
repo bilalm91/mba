@@ -59,19 +59,19 @@ body::before {
 /* Tablet Size */
 @media (max-width: 1024px) {
     .corner-floral {
-        width: clamp(100px, 18vw, 220px);
+        width: clamp(134.4px, 24.192vw, 295.68px);
     }
 }
 /* Mobile Size */
 @media (max-width: 768px) {
     .corner-floral {
-        width: clamp(80px, 25vw, 150px);
+        width: clamp(107.52px, 33.6vw, 201.6px);
     }
 }
 /* Extra Small / Zoomed-in Size */
 @media (max-width: 480px) {
     .corner-floral {
-        width: clamp(60px, 22vw, 110px);
+        width: clamp(80.64px, 29.568vw, 147.84px);
     }
 }
 
@@ -87,10 +87,13 @@ body::before {
 
 /* Add extra padding to first and last sections to avoid content hiding under florals */
 #hero {
-    padding-top: 120px;
+        /* padding-top: 120px; */
+        padding-top: 50px;
+
 }
 #rsvp {
-    padding-bottom: 150px;
+    /* padding-bottom: 150px; */
+    padding-bottom: 50px;
 }
 
 
@@ -114,7 +117,7 @@ p {
     position: fixed;
     pointer-events: none;
     will-change: transform, opacity;
-    z-index: 9999;
+    z-index: 1;
     opacity: 0;
     width: 15px;
     height: 20px;
