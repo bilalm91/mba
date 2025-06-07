@@ -50,7 +50,7 @@ body::before {
     padding: 0px; /* Padding might be added to content wrappers instead */
     text-align: center;
     position: relative; /* Crucial for absolute positioning of children */
-    height: 100vh;
+    height: auto;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -59,7 +59,6 @@ body::before {
     scroll-snap-align: start;
     scroll-snap-stop: always;
     width: 100%;
-    overflow: hidden;
 }
 
 h1, h2, h3 {
@@ -96,58 +95,76 @@ p {
 .floral-element {
     position: absolute;
     pointer-events: none;
-    width: clamp(250px, 43.5vw, 475px); /* Reduced size by 0.5x */
+    width: clamp(250px, 43.5vw, 475px);
     height: auto;
     opacity: 0; /* For animation */
+    z-index: 1;
+    /* NEW: Use transitions for smooth state changes, especially on hero flowers */
+    transition: transform 1.2s ease-out, opacity 1.2s ease-out;
 }
+
+/* MODIFICATION: The animation for hero flowers is now handled by the transition above. */
+/* This allows JS to dynamically and smoothly change the size. */
 
 /* Hero Section Floral Positioning */
 .hero-section .floral-left {
     bottom: 0px;
     left: 0px;
+    /* Initial state before activation */
     transform: translateX(-30px) scale(0.8);
     transform-origin: bottom left;
-}
-.hero-section.active-section .floral-left {
-    animation: fadeInLeft 1.2s ease-out 0.5s forwards, scaleUp 1.2s ease-out 0.5s forwards;
 }
 
 .hero-section .floral-right {
     top: 0px;
     right: 0px;
+    /* Initial state before activation */
     transform: translateX(30px) scale(0.8);
     transform-origin: top right;
 }
+
+/* When the section becomes active, flowers animate to their default position */
+.hero-section.active-section .floral-left,
 .hero-section.active-section .floral-right {
-    animation: fadeInRight 1.2s ease-out 0.5s forwards, scaleUp 1.2s ease-out 0.5s forwards;
+    opacity: 1;
+    transform: translateX(0) scale(1);
 }
 
-/* You're Invited Section Specific Floral Positioning */
+/* NEW: This class, added by JS, will shrink the flower if it overlaps with text */
+.hero-section .floral-left.is-colliding,
+.hero-section .floral-right.is-colliding {
+    transform: translateX(0) scale(0.6); /* Smaller scale on collision */
+}
+
+
+/* You're Invited Section Specific Floral Positioning (reverts to animation) */
 .youre-invited-section .floral-bottom-right {
     bottom: 8px;
     right: 8px;
-    z-index: 2;
+    z-index: 3;
     width: clamp(100px, 17.5vw, 200px);
     transform: scale(0.4);
     transform-origin: bottom right;
+    transition: none; /* Disable the global transition for this element */
 }
 .youre-invited-section.active-section .floral-bottom-right {
     animation: scaleUp 1s ease-out 0.7s forwards;
 }
 
-/* Schedule Section Specific Floral Positioning */
+/* Schedule Section Specific Floral Positioning (reverts to animation) */
 .schedule-section .floral-schedule-left {
     bottom: 12px;
     left: 12px;
     transform: translateX(-30px) scale(0.7);
     transform-origin: bottom left;
+    transition: none; /* Disable the global transition for this element */
 }
 
 @media (max-width: 480px) {
     .schedule-section .floral-schedule-left {
         width: 40% !important;
         transform: translateX(-30px) scale(0.25);
-        z-index: 2;
+        z-index: 1;
     }
 }
 .schedule-section.active-section .floral-schedule-left {
@@ -156,30 +173,34 @@ p {
 
 /* RSVP Section - Floral rule (generic part) */
 .rsvp-section .floral-rsvp-center {
-    z-index: 0; 
+    z-index: 0;
     pointer-events: none;
+    transition: none; /* Disable the global transition for this element */
 }
-.rsvp-section.active-section .floral-rsvp-center { /* Animation for all floral-rsvp-center */
+.rsvp-section.active-section .floral-rsvp-center {
     animation: scaleUp 1s ease-out 0.9s forwards;
 }
 
 /* --- HERO SECTION STYLES --- */
 .hero-section .hero-content-wrapper {
-    background-color: rgba(255, 255, 255, 0.2); 
+    background-color: rgba(255, 255, 255, 0.2);
     padding: 20px;
-    border-radius: 8px; 
-    max-width: 90%; 
-    position: relative; 
-    z-index: 2; 
+    border-radius: 8px;
+    max-width: 90%;
+    position: relative;
+    /* This ensures the text box is always on top of the flowers */
+    z-index: 2;
 }
+
+/* ... all other CSS rules remain the same ... */
 
 .bismillah-container {
     margin-top: 15px;
     margin-bottom: 5px;
-    padding: 10px 0;  
+    padding: 10px 0;
     opacity: 0;
     transform: translateY(-40px);
-    position: relative; 
+    position: relative;
 }
 
 .bismillah-container::after {
@@ -193,7 +214,7 @@ p {
 
 .bismillah-img {
     max-width: 100%;
-    width: clamp(150px, 40vw, 260px); 
+    width: clamp(150px, 40vw, 260px);
     height: auto;
     margin-left: auto;
     margin-right: auto;
@@ -251,7 +272,7 @@ p {
 }
 .couple-names h1 {
     font-family: 'Great Vibes', cursive;
-    font-size: clamp(2.25rem, 7.5vw, 4.875rem); 
+    font-size: clamp(2.25rem, 7.5vw, 4.875rem);
     color: #CB5837;
     line-height: 1.1;
     font-weight: normal;
@@ -304,11 +325,11 @@ p {
 /* You're Invited Section */
 .youre-invited-section .content-container {
     max-width: 90%; margin: 0 auto; padding: 20px 0;
-    position: relative; z-index: 2; 
+    position: relative; z-index: 2;
 }
 .youre-invited-section .text-content h2 {
     font-family: 'Great Vibes', cursive;
-    font-size: clamp(2.8rem, 7vw, 4rem); 
+    font-size: clamp(2.8rem, 7vw, 4rem);
     color: #C55A11;
     margin-bottom: 20px;
     opacity: 0;
@@ -326,7 +347,7 @@ p {
     animation: fadeInUp 0.8s ease-out 0.6s forwards;
 }
 .youre-invited-section .image-content .couple-photo {
-    max-width: clamp(181.5px, 66vw, 495px); 
+    max-width: clamp(181.5px, 66vw, 495px);
     border-radius: 12px;
     border: 5px solid rgba(255, 255, 255, 0.85);
     box-shadow: 0 6px 22px rgba(0, 0, 0, 0.12);
@@ -336,7 +357,7 @@ p {
 
 @media (min-width: 768px) {
     .youre-invited-section .image-content .couple-photo {
-        max-width: clamp(440px, 55vw, 600px); 
+        max-width: clamp(440px, 55vw, 600px);
     }
 }
 .youre-invited-section.active-section .image-content .couple-photo {
@@ -346,13 +367,13 @@ p {
 /* Schedule Section */
 .schedule-section .content-container {
     max-width: 90%; margin: 0 auto; padding: 20px 0;
-    position: relative; z-index: 2; 
+    position: relative; z-index: 2;
 }
 .schedule-section .content-container > h2 {
-    font-family: 'Great Vibes', cursive; 
-    font-size: clamp(2.8rem, 7vw, 4rem); 
-    color: #C55A11; 
-    margin-bottom: 25px; 
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(2.8rem, 7vw, 4rem);
+    color: #C55A11;
+    margin-bottom: 25px;
     opacity: 0; transform: translateY(-40px);
 }
 .schedule-section.active-section .content-container > h2 {
@@ -363,16 +384,16 @@ p {
     padding: clamp(20px, 4vw, 30px);
     border-radius: 10px;
     border-left: 4px solid #C55A11;
-    max-width: 480px; 
+    max-width: 480px;
     margin: 0 auto;
     opacity: 0;
     transform: scale(0.8);
-    overflow: hidden; 
+    overflow: hidden;
 }
 .schedule-section.active-section .event-details {
     animation: scaleUp 0.9s ease-out 0.6s forwards;
 }
-.schedule-section .event-details > * { 
+.schedule-section .event-details > * {
     opacity: 0;
     transform: translateY(40px);
 }
@@ -389,9 +410,9 @@ p {
     font-size: clamp(1rem, 2.8vw, 1.15rem);
     font-weight: 700; color: #8D4513;
 }
-.event-details h3 { 
+.event-details h3 {
     font-family: 'Playfair Display', serif;
-    color: #CB5837; 
+    color: #CB5837;
     font-size: clamp(1.3rem, 3.5vw, 1.6rem);
     margin-top: 5px;
     margin-bottom: 8px;
@@ -413,13 +434,13 @@ p {
     position: relative;
     width: 100%;
     height: 0;
-    padding-bottom: 66.66666666666666%; 
-    margin-top: 20px; 
+    padding-bottom: 66.66666666666666%;
+    margin-top: 20px;
 }
 
 .embed-map-container {
     overflow: hidden;
-    background: none !important; 
+    background: none !important;
     width: 100%;
     height: 100%;
     position: absolute;
@@ -433,16 +454,16 @@ p {
     position: absolute;
     top: 0;
     left: 0;
-    border: 0; 
+    border: 0;
 }
 
 
-.centered-text-intro { 
+.centered-text-intro {
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
-    margin-bottom: 25px; 
-    opacity: 0; 
+    margin-bottom: 25px;
+    opacity: 0;
 }
 .schedule-section.active-section .centered-text-intro,
 .rsvp-section.active-section .centered-text-intro {
@@ -455,10 +476,10 @@ p {
     max-width: 90%; margin: 0 auto; padding: 20px 0;
 }
 .faq-section .content-container > h2 {
-    font-family: 'Great Vibes', cursive; 
-    font-size: clamp(2.8rem, 7vw, 4rem); 
-    color: #C55A11; 
-    margin-bottom: 30px; 
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(2.8rem, 7vw, 4rem);
+    color: #C55A11;
+    margin-bottom: 30px;
     opacity: 0; transform: translateY(-40px);
 }
 .faq-section.active-section .content-container > h2 {
@@ -467,20 +488,20 @@ p {
 
 .faq-grid {
     display: grid;
-    grid-template-columns: 1fr; 
-    gap: 15px; 
+    grid-template-columns: 1fr;
+    gap: 15px;
     width: 100%;
-    max-width: 700px; 
+    max-width: 700px;
     margin: 0 auto;
 }
 
 .faq-item {
-    background-color: rgba(255, 253, 252, 0.65); 
+    background-color: rgba(255, 253, 252, 0.65);
     border-radius: 10px;
-    border: 1px solid rgba(203, 88, 55, 0.25); 
-    overflow: hidden; 
+    border: 1px solid rgba(203, 88, 55, 0.25);
+    overflow: hidden;
     opacity: 0;
-    transform: translateY(40px); 
+    transform: translateY(40px);
 }
 
 .faq-question {
@@ -493,23 +514,23 @@ p {
     padding: clamp(15px, 3vw, 20px) clamp(20px, 4vw, 25px);
     text-align: left;
     cursor: pointer;
-    font-family: inherit; 
+    font-family: inherit;
 }
 
 .faq-question h3 {
     font-family: 'Playfair Display', serif;
-    color: #5d4037; 
-    font-size: clamp(1rem, 2.8vw, 1.2rem); 
-    margin-bottom: 0; 
-    font-weight: 700; 
+    color: #5d4037;
+    font-size: clamp(1rem, 2.8vw, 1.2rem);
+    margin-bottom: 0;
+    font-weight: 700;
 }
 
 .faq-icon {
     font-size: clamp(1.4rem, 3vw, 1.8rem);
-    color: #5d4037; 
+    color: #5d4037;
     transition: transform 0.3s ease-out;
-    font-weight: 300; 
-    margin-left: 15px; 
+    font-weight: 300;
+    margin-left: 15px;
 }
 
 .faq-answer {
@@ -518,7 +539,7 @@ p {
     transition: max-height 0.45s ease-out, padding-top 0.45s ease-out, padding-bottom 0.45s ease-out;
     padding-left: clamp(20px, 4vw, 25px);
     padding-right: clamp(20px, 4vw, 25px);
-    background-color: rgba(255, 255, 255, 0.1); 
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 .faq-answer p {
@@ -526,7 +547,7 @@ p {
     font-size: clamp(0.85rem, 2.2vw, 1rem);
     color: #5d4037;
     line-height: 1.65;
-    margin-bottom: 0; 
+    margin-bottom: 0;
 }
 
 /* Ensure map inside FAQ answer has some bottom margin if it's last element */
@@ -536,13 +557,13 @@ p {
 
 
 .faq-item.active .faq-answer {
-    max-height: 800px; 
-    padding-top: clamp(5px, 1.5vw, 10px); 
-    padding-bottom: clamp(15px, 3vw, 20px); 
+    max-height: 800px;
+    padding-top: clamp(5px, 1.5vw, 10px);
+    padding-bottom: clamp(15px, 3vw, 20px);
 }
 
 .faq-item.active .faq-icon {
-    transform: rotate(45deg); 
+    transform: rotate(45deg);
 }
 
 /* Staggered animation for FAQ items */
@@ -563,14 +584,14 @@ p {
     padding-left: 0;
     padding-right: 0;
     padding-bottom: 170px; /* Keep padding for flower space */
-    position: relative; z-index: 2; 
+    position: relative; z-index: 2;
 }
 
-.rsvp-section .content-container > h2 { 
-    font-family: 'Great Vibes', cursive; 
-    font-size: clamp(2.8rem, 7vw, 4rem); 
-    color: #C55A11; 
-    margin-bottom: 25px; 
+.rsvp-section .content-container > h2 {
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(2.8rem, 7vw, 4rem);
+    color: #C55A11;
+    margin-bottom: 25px;
     opacity: 0; transform: translateY(-40px);
 }
 .rsvp-section.active-section .content-container > h2 {
@@ -588,16 +609,16 @@ p {
     font-size: clamp(1.1rem, 3.5vw, 1.4rem);
     border-radius: 6px;
     transition: background-color 0.3s ease, transform 0.2s ease;
-    margin-bottom: 20px; 
+    margin-bottom: 20px;
 
-    opacity: 0; 
-    transform: scale(0.7); 
-    position: relative; 
-    z-index: 2; 
+    opacity: 0;
+    transform: scale(0.7);
+    position: relative;
+    z-index: 2;
 }
 .rsvp-button:hover {
     background-color: #A0470F;
-    transform: translateY(-2px) scale(1); 
+    transform: translateY(-2px) scale(1);
 }
 
 
@@ -609,19 +630,19 @@ p {
     border-left: 4px solid #C55A11;
     max-width: 580px;
     width: 90%;
-    margin: 0 auto 30px auto; 
+    margin: 0 auto 30px auto;
     position: relative;
-    z-index: 1; 
+    z-index: 1;
 
     opacity: 0;
     transform: scale(0.85);
 }
 
 .rsvp-section.active-section .rsvp-details-box {
-    animation: scaleUp 0.9s ease-out 0.4s forwards; 
+    animation: scaleUp 0.9s ease-out 0.4s forwards;
 }
 
-.rsvp-details-box h2, 
+.rsvp-details-box h2,
 .rsvp-details-box .rsvp-date-emphasis,
 .rsvp-details-box .rsvp-intro-text,
 .rsvp-details-box .rsvp-contact-info {
@@ -643,13 +664,13 @@ p {
 
 
 .rsvp-section.active-section .rsvp-details-box .rsvp-button {
-    animation: popIn 0.8s ease-out forwards; 
-    animation-delay: 1.05s; 
+    animation: popIn 0.8s ease-out forwards;
+    animation-delay: 1.05s;
 }
-.rsvp-details-box h2 { 
-    font-family: 'Great Vibes', cursive; 
-    font-size: clamp(2.4rem, 6.5vw, 3.5rem); 
-    color: #C55A11; 
+.rsvp-details-box h2 {
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(2.4rem, 6.5vw, 3.5rem);
+    color: #C55A11;
     margin-bottom: 15px;
     line-height: 1.2;
 }
@@ -680,12 +701,12 @@ p {
     margin-top: 25px;
     line-height: 1.6;
 }
-.rsvp-contact-info a { 
-    color: inherit; 
-    text-decoration: none; 
+.rsvp-contact-info a {
+    color: inherit;
+    text-decoration: none;
 }
 .rsvp-contact-info a:hover {
-    color: #C55A11; 
+    color: #C55A11;
     text-decoration: underline;
 }
 
@@ -705,15 +726,12 @@ p {
 }
 
 /* MODIFIED: Floral element for RSVP section - to match image */
-.rsvp-section .floral-rsvp-center { 
+.rsvp-section .floral-rsvp-center {
     bottom: 110px;   /* Increased to bring flower higher, closer to box */
     left: 70%;      /* Positioned to the right; adjust as needed (e.g., 70%-75%) */
     transform: scale(1.2); /* Just scaling, no translation */
     transform-origin: bottom left; /* Scale from its bottom left corner */
-    width: clamp(198px, 38.5vw, 275px); 
-
-    /* z-index: 0; and pointer-events: none; are inherited */
-    z-index: 2; /* Ensure it appears above the RSVP box */
+    width: clamp(198px, 38.5vw, 275px);
 }
 
 /* Make floral appear on top of the RSVP box on mobile */
@@ -723,7 +741,6 @@ p {
         bottom: 140px;
         width: clamp(120px, 55vw, 170px); /* Make a little smaller */
         transform: translateX(-50%) scale(1.22) rotate(-30deg); /* Rotate a little anti-clockwise */
-        z-index: 3;
     }
 }
 
@@ -740,23 +757,23 @@ p {
     .youre-invited-section .text-content { flex: 1.2; padding-right: 10px; }
     .youre-invited-section .image-content { flex: 0.8; text-align: center; padding-left: 10px; }
     .faq-grid {
-        gap: 20px; 
+        gap: 20px;
     }
     .faq-question h3 {
-        font-size: clamp(1.1rem, 2.2vw, 1.25rem); 
+        font-size: clamp(1.1rem, 2.2vw, 1.25rem);
     }
     .faq-answer p {
-        font-size: clamp(0.9rem, 2vw, 1.05rem); 
+        font-size: clamp(0.9rem, 2vw, 1.05rem);
     }
 }
 
 @media (min-width: 1024px) {
     .bismillah-img { max-width: 300px; }
     .youre-invited-section .content-container { gap: 40px; }
-    .faq-section .content-container { max-width: 800px; } 
-    .schedule-section .content-container { max-width: 700px; } 
-    .schedule-section .event-details { max-width: 520px; } 
-    .rsvp-section .content-container { max-width: 700px; } 
+    .faq-section .content-container { max-width: 800px; }
+    .schedule-section .content-container { max-width: 700px; }
+    .schedule-section .event-details { max-width: 520px; }
+    .rsvp-section .content-container { max-width: 700px; }
 }
 
 /* Animation Keyframes */
@@ -770,5 +787,5 @@ p {
 @keyframes popIn {
   0% { opacity: 0; transform: scale(0.7); }
   70% { opacity: 1; transform: scale(1.05); }
-  100% { opacity: 1; transform: scale(1); } 
+  100% { opacity: 1; transform: scale(1); }
 }
