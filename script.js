@@ -1,42 +1,28 @@
 document.addEventListener("DOMContentLoaded", () => {
   // --- Intersection Observer for Section Animations ---
-  // ... (your existing Intersection Observer code) ...
   const sections = document.querySelectorAll(".section");
   const animationOptions = { threshold: 0.25 };
   const animationObserver = new IntersectionObserver((entries, observer) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) entry.target.classList.add("active-section");
-      // else entry.target.classList.remove('active-section'); // Optional: replay
     });
   }, animationOptions);
   sections.forEach((section) => animationObserver.observe(section));
 
 
-  // --- Flower Petal Falling Animation ---
-  // ... (your existing petal animation code, including updateObstacleRects function) ...
+  // --- Flower Petal Animation ---
   const petalContainer = document.body;
   const activePetals = [];
   const landedPetals = [];
   const maxActivePetals = 35;
   const maxLandedPetals = 100;
-  const petalColors = [
-    "#FFB6C1",
-    "#FFC0CB",
-    "#FFDAB9",
-    "#FFE4E1",
-    "#FFACC7",
-    "#FF91AF",
-  ];
-
+  const petalColors = ["#FFB6C1", "#FFC0CB", "#FFDAB9", "#FFE4E1", "#FFACC7", "#FF91AF"];
   let obstacleElements = [];
 
-  function updateObstacleRects() { // THIS FUNCTION IS KEY
+  function updateObstacleRects() {
     obstacleElements = [];
     document.querySelectorAll(".petal-obstacle").forEach((el) => {
-      if (
-        el.offsetParent !== null &&
-        window.getComputedStyle(el).visibility !== "hidden"
-      ) {
+      if (el.offsetParent !== null && window.getComputedStyle(el).visibility !== "hidden") {
         obstacleElements.push({
           element: el,
           rect: el.getBoundingClientRect(),
@@ -58,18 +44,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const petalEl = document.createElement("div");
     petalEl.classList.add("petal");
 
-    const size = Math.random() * 6 + 8; // Slightly smaller: 8px to 14px
+    const size = Math.random() * 6 + 8;
     petalEl.style.width = `${size}px`;
     const petalHeight = size * (Math.random() * 0.4 + 1.15);
     petalEl.style.height = `${petalHeight}px`;
-    petalEl.style.backgroundColor =
-      petalColors[Math.floor(Math.random() * petalColors.length)];
+    petalEl.style.backgroundColor = petalColors[Math.floor(Math.random() * petalColors.length)];
     petalEl.style.opacity = Math.random() * 0.3 + 0.65;
 
     const initialX = Math.random() * window.innerWidth;
     petalEl.style.left = `${initialX}px`;
     petalEl.style.top = `-${petalHeight * 3}px`;
-
     petalContainer.appendChild(petalEl);
 
     activePetals.push({
@@ -78,15 +62,14 @@ document.addEventListener("DOMContentLoaded", () => {
       y: -petalHeight * 3,
       width: size,
       height: petalHeight,
-      speedY: Math.random() * 0.4 + 0.2, // SLOWED DOWN: Initial vertical speed
-      speedX: (Math.random() - 0.5) * 0.6, // SLOWED DOWN: Initial horizontal drift
+      speedY: Math.random() * 0.4 + 0.2,
+      speedX: (Math.random() - 0.5) * 0.6,
       swayAmplitude: Math.random() * 10 + 5,
       swayFrequency: Math.random() * 0.02 + 0.01,
       swayPhase: Math.random() * Math.PI * 2,
       rotation: Math.random() * 360,
       rotationSpeed: (Math.random() - 0.5) * 1.5,
       landed: false,
-      bounceCooldown: 0,
     });
   }
 
@@ -103,79 +86,67 @@ document.addEventListener("DOMContentLoaded", () => {
     );
   }
 
-function animatePetals() {
+  // === ROBUST COLLISION & PHYSICS LOGIC ===
+  function animatePetals() {
     for (let i = activePetals.length - 1; i >= 0; i--) {
         const petal = activePetals[i];
 
         if (petal.landed) continue;
-        if (petal.bounceCooldown > 0) petal.bounceCooldown--;
 
-        let collisionHappenedThisFrame = false;
+        let onObstacleTop = false;
 
-        // --- Collision Detection and Response Block ---
-        if (petal.bounceCooldown <= 0) {
-            for (const obs of obstacleElements) {
-                // IMPORTANT: Use obs.rect which is updated by updateObstacleRects()
-                // If performance becomes an issue with many dynamic obstacles,
-                // you might get a fresh rect here: const currentRect = obs.element.getBoundingClientRect();
-                // But for now, relying on updateObstacleRects() called on accordion toggle is better.
-                if (checkCollision(petal, obs.rect)) {
-                    collisionHappenedThisFrame = true;
+        // --- Collision Detection and Response ---
+        for (const obs of obstacleElements) {
+            if (checkCollision(petal, obs.rect)) {
+                // Determine collision direction
+                const pCenterX = petal.x + petal.width / 2;
+                const pCenterY = petal.y + petal.height / 2;
+                const oRect = obs.rect;
 
-                    const pCenterX = petal.x + petal.width / 2;
-                    const pCenterY = petal.y + petal.height / 2;
-                    const oRect = obs.rect;
-                    const ejectSpeedBase = 1.5;
-                    const pushOutFactor = 0.6;
+                const deltaX = pCenterX - (oRect.left + oRect.width / 2);
+                const deltaY = pCenterY - (oRect.top + oRect.height / 2);
+                
+                const overlapX = (petal.width / 2 + oRect.width / 2) - Math.abs(deltaX);
+                const overlapY = (petal.height / 2 + oRect.height / 2) - Math.abs(deltaY);
 
-                    const deltaX = pCenterX - (oRect.left + oRect.width / 2);
-                    const deltaY = pCenterY - (oRect.top + oRect.height / 2);
-                    const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-                    let normalX = 0, normalY = 0;
+                // Check if it's a vertical or horizontal collision
+                if (overlapY < overlapX) {
+                    // Top or bottom collision
+                    if (deltaY < 0 && petal.speedY > 0) { // Coming from top, landing
+                        onObstacleTop = true;
+                        petal.y = oRect.top - petal.height;
+                        petal.speedY = 0; // Stop falling
 
-                    if (distance > 0) {
-                        normalX = deltaX / distance;
-                        normalY = deltaY / distance;
-                    } else {
-                        normalX = (Math.random() - 0.5) * 2; normalY = (Math.random() - 0.5) * 2;
-                        const tempDist = Math.sqrt(normalX * normalX + normalY * normalY);
-                        if (tempDist > 0) { normalX /= tempDist; normalY /= tempDist; }
-                        else { normalX = 1; }
+                        // Apply slide logic
+                        const slideForce = 0.1;
+                        petal.speedX += Math.sign(deltaX || (Math.random() - 0.5)) * slideForce;
+                    } else { // Coming from bottom, bounce down
+                        petal.y = oRect.bottom;
+                        petal.speedY *= -0.4;
                     }
-
-                    const overlapX = (petal.width / 2 + oRect.width / 2) - Math.abs(deltaX);
-                    const overlapY = (petal.height / 2 + oRect.height / 2) - Math.abs(deltaY);
-
-                    if (overlapX < overlapY) {
-                        petal.x += normalX * overlapX * pushOutFactor;
-                        petal.speedX = normalX * ejectSpeedBase * (Math.random() * 0.5 + 0.75);
-                        petal.speedY = normalY * ejectSpeedBase * 0.3 + petal.speedY * 0.3;
-                    } else {
-                        petal.y += normalY * overlapY * pushOutFactor;
-                        petal.speedY = normalY * ejectSpeedBase * (Math.random() * 0.5 + 0.75);
-                        petal.speedX = normalX * ejectSpeedBase * 0.3 + petal.speedX * 0.3;
-                    }
-
-                    if (normalY < -0.5 && petal.speedY > -0.3) {
-                        petal.speedY = - (Math.random() * 0.5 + 0.5);
-                    }
-
-                    petal.rotationSpeed += (Math.random() - 0.5) * 4.0;
-                    petal.bounceCooldown = 10;
-                    break;
+                } else {
+                    // Side collision, bounce horizontally
+                    petal.speedX *= -0.6;
+                    petal.x += Math.sign(deltaX) * overlapX; // Push it out
                 }
+                petal.rotationSpeed += (Math.random() - 0.5) * 2;
+                break; // Handle one collision per frame
             }
         }
-        // --- End Collision Block ---
 
-        if (!petal.landed) {
+        // --- Standard Gravity & Physics Update ---
+        if (!onObstacleTop) {
             const gravityEffect = 0.02;
             petal.speedY += gravityEffect;
             petal.speedY = Math.min(petal.speedY, 1.6);
         }
+        
+        // Apply friction
+        petal.speedX *= 0.98;
 
         petal.y += petal.speedY;
         petal.x += petal.speedX;
+        
         petal.swayPhase += petal.swayFrequency;
         const swayOffset = Math.sin(petal.swayPhase) * petal.swayAmplitude;
         petal.rotation += petal.rotationSpeed;
@@ -184,14 +155,14 @@ function animatePetals() {
         petal.element.style.left = `${petal.x}px`;
         petal.element.style.top = `${petal.y}px`;
 
+
+        // --- Landing & Cleanup Logic ---
         const petalBottomEdge = petal.y + petal.height;
-        if (!collisionHappenedThisFrame && petalBottomEdge >= window.innerHeight - 8) {
+        if (!onObstacleTop && petalBottomEdge >= window.innerHeight - 8) {
             petal.landed = true;
             petal.y = window.innerHeight - petal.height - (Math.random() * 8);
-            petal.element.style.left = `${petal.x + (Math.random() * 15 - 7.5)}px`;
             petal.element.style.top = `${petal.y}px`;
             petal.element.style.transform = `translateY(0px) rotate(${Math.random() * 50 - 25}deg)`;
-            petal.element.style.zIndex = 9998 - landedPetals.length;
             landedPetals.push(petal);
             activePetals.splice(i, 1);
             if (landedPetals.length > maxLandedPetals) {
@@ -204,37 +175,75 @@ function animatePetals() {
         }
     }
     requestAnimationFrame(animatePetals);
-}
+  }
 
   setInterval(createPetal, 500);
   animatePetals();
 
 
-  // --- NEW: FAQ Accordion Logic ---
+  // --- FAQ Accordion Logic ---
   const faqItems = document.querySelectorAll(".faq-item");
   faqItems.forEach((item) => {
     const questionButton = item.querySelector(".faq-question");
     if (questionButton) {
       questionButton.addEventListener("click", () => {
         const isOpening = !item.classList.contains("active");
-        
-        // Optional: Close other open items for a classic accordion behavior
         if (isOpening) {
           faqItems.forEach(otherItem => {
             if (otherItem !== item && otherItem.classList.contains('active')) {
               otherItem.classList.remove('active');
-              otherItem.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
             }
           });
         }
-
         item.classList.toggle("active");
-        questionButton.setAttribute('aria-expanded', item.classList.contains("active").toString());
-
-        // Update obstacle rects for petal collision after the accordion animation might have started
-        // A small delay can help ensure new dimensions are registered if animations affect layout immediately
-        setTimeout(updateObstacleRects, 50); // Call after a brief delay
+        setTimeout(updateObstacleRects, 300);
       });
     }
   });
+
+
+  // --- PETAL INTERACTION (CLICK/TOUCH) --- THIS SHOULD NOW WORK CORRECTLY
+  function handlePetalInteraction(e) {
+      const targetEl = e.target;
+      if (!targetEl.classList.contains('petal')) return;
+
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
+      let foundPetal = null;
+      let wasLanded = false;
+      let foundIndex = -1;
+
+      foundIndex = activePetals.findIndex(p => p.element === targetEl);
+      if (foundIndex !== -1) {
+          foundPetal = activePetals[foundIndex];
+      } else {
+          foundIndex = landedPetals.findIndex(p => p.element === targetEl);
+          if (foundIndex !== -1) {
+              foundPetal = landedPetals[foundIndex];
+              wasLanded = true;
+          }
+      }
+
+      if (foundPetal) {
+          e.preventDefault();
+          const force = 4 + Math.random() * 4;
+          const dx = (foundPetal.x + foundPetal.width / 2) - clientX;
+          const dy = (foundPetal.y + foundPetal.height / 2) - clientY;
+          const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+
+          foundPetal.speedX = (dx / dist) * force;
+          foundPetal.speedY = (dy / dist) * force;
+          foundPetal.rotationSpeed += (Math.random() - 0.5) * 15;
+
+          if (wasLanded) {
+              foundPetal.landed = false;
+              activePetals.push(foundPetal);
+              landedPetals.splice(foundIndex, 1);
+          }
+      }
+  }
+  document.body.addEventListener('mousedown', handlePetalInteraction);
+  document.body.addEventListener('touchstart', handlePetalInteraction, { passive: false });
+
 });

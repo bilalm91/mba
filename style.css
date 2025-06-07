@@ -692,3 +692,40 @@ p {
   70% { opacity: 1; transform: scale(1.05); }
   100% { opacity: 1; transform: scale(1); } 
 }
+
+
+/* --- NEW: GYROSCOPE PERMISSION OVERLAY --- */
+#permission-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999;
+    transition: opacity 0.5s ease-out;
+}
+
+#permission-button {
+    background-color: #C55A11;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transition: all 0.2s ease;
+}
+
+#permission-button:hover {
+    background-color: #A0470F;
+    transform: translateY(-2px);
+}
